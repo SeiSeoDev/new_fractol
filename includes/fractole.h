@@ -32,6 +32,8 @@ typedef struct		s_list
 	double CxMin;
 	double CyMin;
 	double CxMax;
+	float h;
+	float v;
 	double CyMax;
 	int iterations;
     t_img		*mlx_img;

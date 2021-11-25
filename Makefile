@@ -20,7 +20,7 @@ LINUX_MACRO = -D LINUX
 
 MACOS_FLAGS = -L $(LIB)mlx -lmlx -framework Appkit -framework OpenGL
 
-LINUX_FLAGS = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
+LINUX_FLAGS =  -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 
 UNAME := $(shell uname)
 

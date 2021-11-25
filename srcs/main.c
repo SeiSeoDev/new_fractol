@@ -19,6 +19,23 @@ void px_put(data_str *env, int color)
         x++;
     }
 }
+
+void    custom_exit(data_str *env, int ret)
+{
+ //       mlx_destroy_image(env->mlx_ptr, env->mlx_img);
+    mlx_destroy_window(env->mlx_ptr, env->mlx_win);
+    if (env)
+    {
+        if (env->mlx_img)
+        {
+            mlx_destroy_image(env->mlx_ptr, env->mlx_img->img_ptr);
+            free(env->mlx_img);
+        }
+        free(env);
+    }
+    exit(ret);
+}
+
 int text_size(char *addr)
 {
     int fd;
@@ -31,20 +48,6 @@ int text_size(char *addr)
     close(fd);
     printf("%d\n", count);
     return(count);
-}
-char *get_xpm(char *addr)
-{
-    int fd;
-    int buf_size;
-    char *text_env;
-    buf_size = text_size(addr);
-    text_env = malloc(sizeof(char) * (1 + buf_size));
-    fd = open(addr, O_RDONLY);
-
-    read(fd, text_env, buf_size);
-    text_env[buf_size] = '\0';
-    //printf("%s\n", text_env);
-return (text_env);
 }
 
 void print_color(data_str *env, unsigned char *color, int x, int y)
@@ -100,9 +103,9 @@ t_hsv mandelbrot(t_complex z, t_complex c, data_str *env, int iteration_max)
         color.v = 0;
         return (color);
     }
-    color.h = 240;
+    color.h = 240 - i;
     color.s = i*3;                
-    color.v = 100;
+    color.v = 100  - ((i * 3) % 100);
     return (color);
 
   /*  if (i < iteration_max/4)
@@ -147,6 +150,33 @@ t_hsv julia(t_complex z, t_complex c, data_str *env, int iteration_max)
     color.h = 240;
     color.s = i;                
     color.v = 100;
+    return (color);
+}
+
+t_hsv burn(t_complex c, t_complex z, data_str *env, int iteration_max)
+{
+    int i;
+    double tmp;
+    t_hsv color;
+    i = 0;
+
+    for (i = 0; i < iteration_max && get_complex_size(z) < 4; i++)
+    {
+        tmp = (z.r * z.r) - (z.i * z.i) + c.r;
+        z.i = (2 * fabs(z.r) * fabs(z.i)) + c.i;
+        z.r = tmp;
+    }
+
+    if (i == iteration_max)
+    {
+        color.h = 0;
+        color.s = 0;
+        color.v = 0;
+        return (color);
+    }
+    color.h = env->h;
+    color.s = i;                
+    color.v = env->v;
     return (color);
 }
 
@@ -207,7 +237,7 @@ void print_fract(data_str *env)
              for(iX=0;iX<env->size_x;iX++)
              {       
                  Cx = pix_calc(env, iX, 'x');
-                        px_to_onscreenimg(env, iX, iY, hsv_to_rgb(mandelbrot(get_complex(Cx, Cy), get_complex(Cx, Cy), env, env->iterations)));
+                        px_to_onscreenimg(env, iX, iY, hsv_to_rgb(burn(get_complex(Cx, Cy), get_complex(0, 0), env, env->iterations)));
             }
         }
         mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->mlx_img->img_ptr, 0, 0);
@@ -221,18 +251,35 @@ int keyboard_hook(int keycode,data_str *env)
     {
         env->mlx_img->ZOOM += 0.1;
     }
-    if(keycode == 36)
+    if(keycode == 65307)
     {
-        env->iterations += 100;
+        custom_exit(env, 0);
     }
+    if (keycode == 65361)
+    {
+        env->mlx_img->START_X += env->mlx_img->START_X * (0.3 * env->mlx_img->ZOOM);
+    }
+    if (keycode == 65363)
+    {
+        env->mlx_img->START_X -= env->mlx_img->START_X * (0.3 * env->mlx_img->ZOOM);
+    }
+    if (keycode == 65362)
+    {
+        env->mlx_img->START_Y += env->mlx_img->START_Y * (0.3 * env->mlx_img->ZOOM);
+    }
+    if (keycode == 65364)
+    {
+        env->mlx_img->START_Y -= env->mlx_img->START_Y * (0.3 * env->mlx_img->ZOOM);
+    }
+
     print_fract(env);
     return 1;
 }
 
 int mouse_hook(int button,int x,int y,data_str *env){
-   // printf("button : %d | x : %d | y : %d\n", button, x, y);
+   printf("button : %d | x : %d | y : %d\n", button, x, y);
    // printf("startX : %f | startY : %f\n", env->mlx_img->START_X, env->mlx_img->START_Y);
-    if (button == 1)
+    if (button == 4)
         {
         env->mlx_img->START_X = pix_calc(env, x, 'x');
 		env->mlx_img->START_Y = pix_calc(env, y, 'y');
@@ -283,6 +330,8 @@ int main()
     env->CyMin = -1.5;
     env->CyMax = 2;
     env->iterations = 100;
+    env->h = 240;
+    env->v = 100;
     env->mlx_ptr = mlx_init();
     env->mlx_win = mlx_new_window(env->mlx_ptr, env->size_x, env->size_y, "new Window");
     //px_put(env, 9845840);
