@@ -6,17 +6,20 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:27:12 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:46:07 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/29 12:02:40 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h> 
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <time.h>
-#include <math.h>
+#ifndef FRACTOLE_H
+# define FRACTOLE_H
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h> 
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <time.h>
+# include <math.h>
 
 typedef struct s_img
 {
@@ -93,3 +96,4 @@ void		move(int keycode, t_env *env);
 double		pix_calc(t_env *env, int p, char is);
 int			norme(double c, double h, double x, double m);
 int			get_rgb(unsigned char r, unsigned char g, unsigned char b);
+#endif
