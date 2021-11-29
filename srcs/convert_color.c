@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:01:53 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 09:01:54 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/29 11:41:19 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ int	get_rgb(unsigned char r, unsigned char g, unsigned char b)
 	result = (result << 8) + b;
 	return (result);
 }
+
 int	rgb_to_int(t_rgb rgb)
 {
 	return (get_rgb(rgb.r, rgb.g, rgb.b));
 }
-t_rgb			int_to_rgb(int c)
+
+t_rgb	int_to_rgb(int c)
 {
 	t_rgb		rgb;
 
@@ -37,32 +39,26 @@ t_rgb			int_to_rgb(int c)
 
 int	hsv_to_rgb(t_hsv hsv)
 {
-	float	c;
-	float	h;
-	float	x;
-	float	m;
+	double	c;
+	double	h;
+	double	x;
+	double	m;
 
-	c = (float)hsv.v / 100 * ((float)hsv.s / 100);
-	h = (float)hsv.h / 60;
-	x = c * (1 - fabsf(h - ((int)h / 2 * 2) - 1));
-	m = (float)hsv.v / 100 - c;
-	if (h >= 0 && h < 1)
-		return (get_rgb(round((c + m) * 255), round((x + m) * 255), round(m * 255)));
-	if (h >= 1 && h < 2)
-		return (get_rgb(round((x + m) * 255), round((c + m) * 255), round(m * 255)));
-	if (h >= 2 && h < 3)
-		return (get_rgb(round(m * 255), round((c + m) * 255), round((x + m) * 255)));
-	if (h >= 3 && h < 4)
-		return (get_rgb(round(m * 255), round((x + m) * 255), round((c + m) * 255)));
-	if (h >= 4 && h < 5)
-		return (get_rgb(round((x + m) * 255), round(m * 255), round((c + m) * 255)));
-	return (get_rgb(round((c + m) * 255), round(m * 255), round((x + m) * 255)));
+	c = (double)hsv.v / 100 * ((double)hsv.s / 100);
+	h = (double)hsv.h / 60;
+	x = c * (1 - fabsf((float)(h - (h / 2 * 2) - 1)));
+	m = (double)hsv.v / 100 - c;
+	return (norme(c, h, x, m));
 }
 
-void px_to_onscreenimg(data_str *data_strc , int x, int y, int c)
+void	px(t_env *t_envc, int x, int y, int c)
 {
-	data_strc->mlx_img->data[x * 4 + y * data_strc->size_x * 4] = int_to_rgb(c).b;
-	data_strc->mlx_img->data[x * 4 + y * data_strc->size_x * 4 + 1] = int_to_rgb(c).g;
-	data_strc->mlx_img->data[x * 4 + y * data_strc->size_x * 4 + 2] = int_to_rgb(c).r;
-	data_strc->mlx_img->data[x * 4 + y * data_strc->size_x * 4 + 3] = 0;
+	t_envc->mlx_img->data[x * 4 + y * t_envc->size_x * 4]
+		= int_to_rgb(c).b;
+	t_envc->mlx_img->data[x * 4 + y * t_envc->size_x * 4 + 1]
+		= int_to_rgb(c).g;
+	t_envc->mlx_img->data[x * 4 + y * t_envc->size_x * 4 + 2]
+		= int_to_rgb(c).r;
+	t_envc->mlx_img->data[x * 4 + y * t_envc->size_x * 4 + 3]
+		= 0;
 }

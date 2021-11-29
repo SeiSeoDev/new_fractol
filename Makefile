@@ -8,7 +8,8 @@ SOURCES =	main.c 				\
 			convert_color.c		\
 			complex.c			\
 			print_hook.c		\
-			sets.c
+			sets.c				\
+			useless.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
