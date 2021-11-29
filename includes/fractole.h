@@ -23,12 +23,15 @@ typedef struct		s_list
 {
     int size_x;
     int size_y;
+	int is_julia;
+	double j_r;
+	double j_i;
     void *mlx_ptr;
     void *mlx_win;
     char *test_text;
 	int mousex;
 	int mousey;
-	int test;
+	int set;
 	double CxMin;
 	double CyMin;
 	double CxMax;
@@ -68,4 +71,13 @@ t_complex add_comp(t_complex a, t_complex b);
 t_complex square_comp(t_complex a);
 t_complex get_complex(float x, float y);
 float get_complex_size(t_complex a);
+void    custom_exit(data_str *env, int ret);
+int mouse_hook(int button,int x,int y,data_str *env);
+int keyboard_hook(int keycode,data_str *env);
+void print_fract(data_str *env);
+t_hsv mandelbrot(t_complex z, t_complex c, data_str *env, int iteration_max);
+t_hsv julia(t_complex z, t_complex c, data_str *env, int iteration_max);
+t_hsv burn(t_complex z, t_complex c, data_str *env, int iteration_max);
+
+
 //gcc -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit main.c

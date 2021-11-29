@@ -4,9 +4,11 @@ DIR_S = srcs/
 
 HEADER = includes/
 
-SOURCES =	main.c 			\
+SOURCES =	main.c 				\
 			convert_color.c		\
-			complex.c			
+			complex.c			\
+			print_hook.c		\
+			sets.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 
