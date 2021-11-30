@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:01:41 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:41:19 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 15:59:45 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void	init(t_env *env)
 	env->mousex = 0;
 	env->mousey = 0;
 	env->iterations = 100;
-	env->h = 240;
+	env->h = 100;
 	env->v = 100;
+	env->clean = 0;
 }
 
 int	main(int ac, char **av)

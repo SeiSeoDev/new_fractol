@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:05:57 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/30 14:03:14 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 16:10:47 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,18 @@ int	keyboard_hook(int keycode, t_env *env)
 		|| keycode == UP_KEY || keycode == DOWN_KEY || keycode == SP_KEY)
 		move(keycode, env);
 	if (keycode == ENTREE)
-		env->h -= 20;
+	{
+		env->h -= 5;
+		env->v += 5;
+	}
 	if (keycode == TAB && env->is_julia == 1)
 		env->is_julia = 0;
 	else if (keycode == TAB && env->is_julia == 0)
 		env->is_julia = 1;
+	if (keycode == P_BUT && !env->clean)
+		env->clean = 1;
+	else if (keycode == P_BUT && env->clean)
+		env->clean = 0;
 	print_fract(env);
 	return (1);
 }

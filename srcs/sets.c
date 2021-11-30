@@ -6,11 +6,18 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:03:05 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:41:19 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 16:11:37 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractole.h"
+
+void	clean(t_hsv	*color, int i)
+{
+	color->h = 240;
+	color->s = i;
+	color->v = 80;
+}
 
 t_hsv	mandelbrot(t_complex z, t_complex c, t_env *env, int iteration_max)
 {
@@ -27,9 +34,11 @@ t_hsv	mandelbrot(t_complex z, t_complex c, t_env *env, int iteration_max)
 		color.v = 0;
 		return (color);
 	}
-	color.h = env->h - i;
-	color.s = i * 3;
-	color.v = 100 - ((i * 3) % 100);
+	color.h = env->h;
+	color.s = env->h + i * 3;
+	color.v = env->h + 100 - ((i * 3) % 100);
+	if (env->clean && i != iteration_max)
+		clean(&color, i);
 	return (color);
 }
 
@@ -49,8 +58,10 @@ t_hsv	julia(t_complex z, t_complex c, t_env *env, int iteration_max)
 		return (color);
 	}
 	color.h = env->h;
-	color.s = i;
-	color.v = 100;
+	color.s = env->h + i;
+	color.v = env->h + 100 - ((i * 3) % 100);
+	if (env->clean && i != iteration_max)
+		clean(&color, i);
 	return (color);
 }
 
@@ -75,7 +86,9 @@ t_hsv	burn(t_complex c, t_complex z, t_env *env, int iteration_max)
 		return (color);
 	}
 	color.h = env->h;
-	color.s = i;
-	color.v = env->v;
+	color.s = env->h + i;
+	color.v = env->h + 100 - ((i * 3) % 100);
+	if (env->clean && i != iteration_max)
+		clean(&color, i);
 	return (color);
 }

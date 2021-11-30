@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:27:12 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/30 13:37:48 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 16:10:26 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_list
 	int				mousex;
 	int				mousey;
 	int				set;
+	int				clean;
 	double			cxmin;
 	double			cymin;
 	double			cxmax;
@@ -117,6 +118,7 @@ int			get_rgb(unsigned char r, unsigned char g, unsigned char b);
 #  define RIGHT_KEY				65363
 #  define DOWN_KEY				65364
 #  define MULTI_KEY				65450
+#  define P_BUT					35
 #  define TAB					48
 #  define ENTREE				76
 #  define PLUS_KEY				65451
@@ -127,6 +129,7 @@ int			get_rgb(unsigned char r, unsigned char g, unsigned char b);
 #  define BUTTON2				2
 #  define BUTTON3				3
 #  define BUTTON4				4
+#  define P_BUT					35
 #  define BUTTON5				5
 #  define KEYPRESS				2
 #  define KEYRELEASE			3
