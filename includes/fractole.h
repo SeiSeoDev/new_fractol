@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:27:12 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 12:02:40 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:37:48 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,57 @@ void		move(int keycode, t_env *env);
 double		pix_calc(t_env *env, int p, char is);
 int			norme(double c, double h, double x, double m);
 int			get_rgb(unsigned char r, unsigned char g, unsigned char b);
+# ifdef LINUX
+#  define BUTTON1				1
+#  define BUTTON2				2
+#  define BUTTON3				3
+#  define BUTTON4				4
+#  define BUTTON5				5
+#  define KEYPRESS				2
+#  define KEYRELEASE			3
+#  define BUTTONPRESS			4
+#  define BUTTONRELEASE			5
+#  define MOTIONNOTIFY			6
+#  define ENTERNOTIFY			7
+#  define LEAVENOTIFY			8
+#  define DESTROYNOTIFY			17
+#  define SP_KEY 				32
+#  define ESC_KEY 				65307
+#  define LEFT_KEY				65361
+#  define UP_KEY				65362
+#  define RIGHT_KEY				65363
+#  define DOWN_KEY				65364
+#  define MULTI_KEY				65450
+#  define TAB					48
+#  define ENTREE				76
+#  define PLUS_KEY				65451
+#  define MOINS_KEY				65453
+#  define DIV_KEY				65455
+# else
+#  define BUTTON1				1
+#  define BUTTON2				2
+#  define BUTTON3				3
+#  define BUTTON4				4
+#  define BUTTON5				5
+#  define KEYPRESS				2
+#  define KEYRELEASE			3
+#  define BUTTONPRESS			4
+#  define BUTTONRELEASE			5
+#  define MOTIONNOTIFY			6
+#  define ENTERNOTIFY			7
+#  define LEAVENOTIFY			8
+#  define DESTROYNOTIFY			17
+#  define ESC_KEY 				53
+#  define SP_KEY 				49
+#  define TAB					48
+#  define ENTREE				36
+#  define LEFT_KEY				123
+#  define UP_KEY				126
+#  define RIGHT_KEY				124
+#  define DOWN_KEY				125
+#  define MULTI_KEY				67
+#  define PLUS_KEY				69
+#  define MOINS_KEY				78
+#  define DIV_KEY				75
+# endif
 #endif

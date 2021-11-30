@@ -6,9 +6,11 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:25:23 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:26:06 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:15:00 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fractole.h"
 
 int	norme(double c, double h, double x, double m)
 {

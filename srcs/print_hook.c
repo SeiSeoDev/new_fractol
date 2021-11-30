@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:05:57 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:41:19 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 14:03:14 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	print_fract(t_env *env)
 
 int	mouse_hook(int button, int x, int y, t_env *env)
 {
-	if (button == 4)
+	if (button == BUTTON4)
 	{
 		env->mlx_img->start_x = pix_calc(env, x, 'x');
 		env->mlx_img->start_y = pix_calc(env, y, 'y');
@@ -85,7 +85,7 @@ int	mouse_hook(int button, int x, int y, t_env *env)
 		env->mousex = x;
 		env->mousey = y;
 	}
-	if (button == 5)
+	if (button == BUTTON5)
 	{
 		env->mlx_img->zoom *= 1.1;
 		env->mousex = x;
@@ -97,16 +97,16 @@ int	mouse_hook(int button, int x, int y, t_env *env)
 
 int	keyboard_hook(int keycode, t_env *env)
 {
-	if (keycode == 65307)
+	if (keycode == ESC_KEY)
 		custom_exit(env, 0);
-	if (keycode == 65451 || keycode == 65361 || keycode == 65363
-		|| keycode == 65362 || keycode == 65364 || keycode == 32)
+	if (keycode == PLUS_KEY || keycode == LEFT_KEY || keycode == RIGHT_KEY
+		|| keycode == UP_KEY || keycode == DOWN_KEY || keycode == SP_KEY)
 		move(keycode, env);
-	if (keycode == 65293)
+	if (keycode == ENTREE)
 		env->h -= 20;
-	if (keycode == 65289 && env->is_julia == 1)
+	if (keycode == TAB && env->is_julia == 1)
 		env->is_julia = 0;
-	else if (keycode == 65289 && env->is_julia == 0)
+	else if (keycode == TAB && env->is_julia == 0)
 		env->is_julia = 1;
 	print_fract(env);
 	return (1);

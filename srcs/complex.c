@@ -6,7 +6,7 @@
 /*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 09:02:05 by dasanter          #+#    #+#             */
-/*   Updated: 2021/11/29 11:41:19 by dasanter         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:31:53 by dasanter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ void	move(int keycode, t_env *env)
 		* env->mlx_img->zoom;
 	w = (pix_calc(env, env->size_x, 'x') - pix_calc(env, 0, 'x'))
 		* env->mlx_img->zoom;
-	if (keycode == 65451)
+	if (keycode == PLUS_KEY)
 		env->mlx_img->zoom *= 0.9;
-	if (keycode == 65361)
+	if (keycode == LEFT_KEY)
 		env->mlx_img->start_x -= w * 0.1;
-	if (keycode == 65363)
+	if (keycode == RIGHT_KEY)
 		env->mlx_img->start_x += w * 0.1;
-	if (keycode == 65362)
+	if (keycode == UP_KEY)
 		env->mlx_img->start_y -= h * 0.1;
-	if (keycode == 65364)
+	if (keycode == DOWN_KEY)
 		env->mlx_img->start_y += h * 0.1;
-	if (keycode == 32)
+	if (keycode == SP_KEY)
 	{
 		if (env->set < 3)
 			env->set += 1;
